@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -20,10 +21,14 @@ class HomeController extends Controller
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
-     */
+     */public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+        return view('home',compact('user'));
     }
     public function profil()
     {
